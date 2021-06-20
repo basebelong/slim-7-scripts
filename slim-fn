@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# Author: Jonas Hendrikson (2021) jonas@hendrikson.se
+
+# Enable or disable battery charge threshold of 60%.
+# Tested on lenovo yoga slim 7 with AMD Ryzen 7 4700U with Radeon Graphics
+
+sys_file='/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/fn_lock'
+
+usage () {
+	echo "Usage: slim-fn [OPTION] [COMMAND]"
+	echo ""
+	echo "Set fn key lock on or off."
+	echo "Should work on Yoga and Ideapad AMD Renoir Ryzen platform."
+	echo "Tested on Lenovo Yoga Slim 7 with AMD Ryzen 7 4700U."
+	echo ""
+	echo "Following OPTIONS are available:"
+	echo "  -h, --help  This text"
+	echo ""
+	echo "Following COMMANDS are available:"
+	echo "  status      Shows current setting (on or off)"
+	echo "      on      F1-F12 works as expected"
+	echo "     off      F1-F12 functions as volume ctrl, light ctrl etc."
+}
+
+set_fnlock_off () {
+	echo 0 > $sys_file
+}
+
+set_fnlock_on () {
+	echo 1 > $sys_file
+}
+
+check_status () {
+	if   [[ $(cat $sys_file) == 0 ]]; then
+		printf "F1-F12 functions as colume ctrl, light ctrl etc.\n"
+	elif [[ $(cat $sys_file) == 1 ]]; then
+		printf "F1-F12 works as expected.\n"
+	elif [[ $(cat $sys_file) > 1 ]]; then
+		printf "Unknown state. May be unsupported hardware."
+	fi
+}
+
+if ! [[ -e $sys_file ]]; then
+	echo "$sys_file does not exist. May be unupported hardware."
+	exit 2
+fi
+
+case $1 in
+	-h | --help)
+		usage ;;
+	status)
+		check_status ;;
+	on)
+		set_fnlock_on ;;
+	off)
+		set_fnlock_off ;;
+	*)
+		usage ;;
+esac
+
+exit 0
