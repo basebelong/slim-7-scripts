@@ -11,3 +11,8 @@ Thank you Matthias!
 Really makes you wonder how Lenovo can superficially limit their own BIOS.
 Is there any possible downsides to allowing normal sleep mode that I am unaware
 of?
+
+MAtthias Hauber has more interesting information about the yoga slim on his
+homepage.
+
+https://matthiashauber.de/Hardware/Lenovo%20Yoga%20Slim%207/
