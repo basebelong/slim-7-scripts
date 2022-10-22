@@ -33,7 +33,7 @@ set_fnlock_on () {
 
 check_status () {
 	if   [[ $(cat $sys_file) == 0 ]]; then
-		printf "F1-F12 functions as colume ctrl, light ctrl etc.\n"
+		printf "F1-F12 functions as volume ctrl, light ctrl etc.\n"
 	elif [[ $(cat $sys_file) == 1 ]]; then
 		printf "F1-F12 works as expected.\n"
 	elif [[ $(cat $sys_file) > 1 ]]; then
